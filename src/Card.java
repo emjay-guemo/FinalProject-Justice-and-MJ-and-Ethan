@@ -4,4 +4,5 @@ public abstract class Card {
     private String rank;
     private int value;
 
+    
 }
