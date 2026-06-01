@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 
 // Represents a player in the game.
-// Stores the player's name, hand and number of points.
+// Stores the player's name, hand, and chips.
 
 public class Player {
 
     private String name;
-    private ArrayList<Card> hand;
-    private int numPoints;
+    private Hand hand;
+    private int chips;
 
 
     // Creates a player with the given name.
     public Player(String name) {
         this.name = name;
-        this.hand = new ArrayList<Card>();
-        this.numPoints = 0;
+        this.hand = hand;
+        this.chips = 0;
     }
 
 
