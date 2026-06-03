@@ -27,6 +27,8 @@ public class Deck
     // Creates all 52 cards
     public void buildDeck()
     {
+        cards.clear();
+
         String[] suits =
                 {
                         "Hearts",

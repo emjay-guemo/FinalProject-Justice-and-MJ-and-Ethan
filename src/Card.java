@@ -4,11 +4,11 @@ public class Card {
     private String rank;
     private int value;
 
-    public Card(String suit, String rank){
+    public Card(String suit, String rank) {
         this.suit = suit;
         this.rank = rank;
 
-        switch (rank){
+        switch (rank) {
             case "Ace":
                 value = 1;
                 break;
@@ -22,13 +22,24 @@ public class Card {
             default:
                 value = Integer.parseInt(rank);
                 break;
-
-
         }
     }
-        @Override
-        public String toString() {
-            return rank + " of " + suit;
-        }
-}
 
+    // Added getters for encapsulation: allows read-only access to suit, rank, and value.
+    public String getSuit() {
+        return suit;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
