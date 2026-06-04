@@ -24,8 +24,13 @@ public class Hand {
         return cards.size();
     }
 
-    public void returnCards(){
+    public void clearCards(){
         cards.clear();
+    }
+
+    // Might need for poker later
+    public ArrayList<Card> getCards() {
+        return new ArrayList<>(cards);
     }
 
     @Override
