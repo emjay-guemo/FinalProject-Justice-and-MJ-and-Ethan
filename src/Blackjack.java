@@ -2,6 +2,7 @@ public class Blackjack extends CasinoGame {
 
     private Deck deck;
     private Player player;
+    private Player dealer;
     private int targetScore;
 
     /*

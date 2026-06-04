@@ -13,7 +13,7 @@ public class Player {
     // Creates a player with the given name.
     public Player(String name) {
         this.name = name;
-        this.hand = hand;
+        this.hand = new Hand();
         this.chips = 0;
     }
 
