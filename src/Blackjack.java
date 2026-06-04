@@ -5,6 +5,25 @@ public class Blackjack extends CasinoGame {
     private Player dealer;
     private int targetScore;
 
+    public Blackjack(){
+        deck = new Deck();
+        deck.shuffle();
+
+        player = new Player("Player");
+        dealer = new Player("Dealer");
+
+
+    }
+
+    public void playGame(){
+        player.getHand().addCard(deck.dealCard());
+        player.getHand().addCard(deck.dealCard());
+
+        dealer.getHand().addCard(deck.dealCard());
+        dealer.getHand().addCard(deck.dealCard());
+
+        
+    }
     /*
     Game overview: Dealer deals everyone 2 cards, he has one card shown, the other one hidden
     with the back of the card being shown to everyone

@@ -17,5 +17,7 @@ public class Player {
         this.chips = 0;
     }
 
-
+    public Hand getHand() {
+        return hand;
+    }
 }
