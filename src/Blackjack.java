@@ -15,9 +15,7 @@ public class Blackjack extends CasinoGame {
         dealer = new Player("Dealer");
     }
 
-    boolean playerTurn = true;
-    while (playerTurn){
-    }
+    
 
     /*
     Game overview: Dealer deals everyone 2 cards, he has one card shown, the other one hidden
