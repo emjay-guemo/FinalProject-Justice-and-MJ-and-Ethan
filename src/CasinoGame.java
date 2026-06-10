@@ -24,6 +24,7 @@ public abstract class CasinoGame {
             else if (choice.equalsIgnoreCase("E")) {
                 break;
             }
+
         }
     }
 }
