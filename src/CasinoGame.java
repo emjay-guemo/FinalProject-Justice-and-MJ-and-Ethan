@@ -8,11 +8,11 @@ public abstract class CasinoGame {
             """;
 
     public void gameRun(){
-        while(true){
+        while (true){
             System.out.println(options);
             Input.getUserString("Please select your choice: ");
 
-            
+
         }
     }
 }
