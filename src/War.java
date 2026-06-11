@@ -65,7 +65,7 @@ public class War extends CasinoGame {
         System.out.println("\nYou ran out of money! Game Over.");
     }
 
-    // This what happens during a Tie
+    // This is what happens during a Tie
     private void handleTie() {
         System.out.println("\nIt's a TIE!");
         System.out.println("1. Go to War (Double your bet)");
@@ -89,7 +89,7 @@ public class War extends CasinoGame {
 
             // Takes the matching war bet money away
             this.balance = this.balance - currentBet;
-            System.out.println("Going to war Matching bet placed.");
+            System.out.println("Going to war, Matching bet has been placed.");
 
             // Burns 3 cards and draws the 4th
             deck.dealCard(); deck.dealCard(); deck.dealCard();
