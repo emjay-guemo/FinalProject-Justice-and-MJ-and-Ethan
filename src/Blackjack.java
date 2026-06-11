@@ -15,7 +15,56 @@ public class Blackjack extends CasinoGame {
         dealer = new Player("Dealer");
     }
 
-    
+    public void playerTurn(){
+        System.out.println("Your Hand: " + player.getHand().size());
+
+        while (player.getHand().size() < 21){
+            String playerChoice = Input.getUserString("""
+                    H for Hit
+                    S for Stand
+                    D for Double
+                    """);
+
+            if (playerChoice.equalsIgnoreCase("H")){
+                System.out.println("Hit");
+                player.getHand().addCard(deck.dealCard());
+            }
+            if (playerChoice.equalsIgnoreCase("S")){
+                break;
+            }
+            if (playerChoice.equalsIgnoreCase("D")){
+                System.out.println("Double");
+                player.getHand().addCard(deck.dealCard());
+            }
+        }
+    }
+
+    public void determineWin(){
+        int playerScore = player.getHand().size();
+        int dealerScore = dealer.getHand().size();
+
+        if (playerScore > 21){
+            System.out.println("Dealer Wins!");
+        }
+        else if (dealerScore > 21) {
+            System.out.println("Player Wins!");
+        }
+        else if (playerScore > dealerScore) {
+            System.out.println("Player Wins!");
+        }
+        else if (dealerScore > playerScore) {
+            System.out.println("Dealer Wins!");
+        }
+        else {
+            System.out.println("Push/Tie");
+        }
+    }
+
+    public void dealerTurn(){
+        while (dealer.getHand().size() < 17){
+            dealer.getHand().addCard(deck.dealCard());
+        }
+    }
 
     /*
     Game overview: Dealer deals everyone 2 cards, he has one card shown, the other one hidden
