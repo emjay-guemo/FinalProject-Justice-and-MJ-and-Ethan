@@ -7,7 +7,7 @@ public class Blackjack extends CasinoGame {
 
     Hand hand = new Hand();
 
-    public Blackjack(){
+    public Blackjack(Player player){
         deck = new Deck();
         deck.shuffle();
 

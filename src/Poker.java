@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class Poker extends CasinoGame implements Playable{
+public class Poker extends CasinoGame implements Playable {
 
     // Private fields for poker game
     private Deck deck;
@@ -15,48 +15,51 @@ public class Poker extends CasinoGame implements Playable{
     }
 
     @Override
-    public void play() {
+    public boolean play() {
 
         playerHand.clearCards();
         computerHand.clearCards();
 
         deck.reset();
 
-        // Deal 5 cards each using addCard from Hand class and dealCard from Deck class
         for (int i = 0; i < 5; i++) {
             playerHand.addCard(deck.dealCard());
             computerHand.addCard(deck.dealCard());
         }
 
-        //Display the hands and scores
         System.out.println("Your Hand:");
         System.out.println(playerHand);
 
-        System.out.println(" ");
+        System.out.println();
         System.out.println("Computer Hand:");
         System.out.println(computerHand);
 
         int playerScore = scoreHand(playerHand);
         int computerScore = scoreHand(computerHand);
 
-        System.out.println(" ");
+        System.out.println();
         System.out.println("Your Score: " + playerScore);
         System.out.println("Computer Score: " + computerScore);
 
-        // Compare the scores to check who won (Or if there was a tie)
+        // Decide winner
         if (playerScore > computerScore) {
             System.out.println("You Win!");
+            return true;
         }
         else if (computerScore > playerScore) {
             System.out.println("Computer Wins!");
+            return false;
         }
         else {
             System.out.println("Tie Game!");
+            return false; // treat tie as loss (simple rule)
         }
     }
 
+    // Counts matching card ranks and assigns points
     private int scoreHand(Hand hand) {
 
+        // Stores how many times each rank appears
         HashMap<String, Integer> counts = new HashMap<>();
 
         for (Card card : hand.getCards()) {

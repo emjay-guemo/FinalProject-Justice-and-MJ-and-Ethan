@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck
-{
+public class Deck {
+
+    // Stores all cards in the deck
     private ArrayList<Card> cards;
 
     /*
@@ -74,7 +75,7 @@ public class Deck
     {
         if (cards.isEmpty())
         {
-            return null;
+            return null; // Returns null if no cards remain
         }
 
         return cards.remove(0);
