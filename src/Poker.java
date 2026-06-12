@@ -6,12 +6,14 @@ public class Poker extends CasinoGame implements Playable {
     private Deck deck;
     private Hand playerHand;
     private Hand computerHand;
+    private Player player;
 
 
-    public Poker() {
+    public Poker(Player player) {
         deck = new Deck();
         playerHand = new Hand();
         computerHand = new Hand();
+        this.player = player;
     }
 
     @Override

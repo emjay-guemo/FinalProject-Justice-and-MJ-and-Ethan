@@ -1,6 +1,6 @@
 public abstract class CasinoGame {
 
     // Every game will implement its own play method
-    public abstract boolean play(Player player);
+    public abstract boolean play();
 
 }

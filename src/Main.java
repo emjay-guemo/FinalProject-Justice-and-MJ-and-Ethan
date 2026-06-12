@@ -33,91 +33,92 @@ public class Main {
                 System.out.println("===================================");
                 running = false;
                 break;
-
-                System.out.println();
-                System.out.println("Choose a game:");
-                System.out.println("1. Poker");
-                System.out.println("2. Blackjack");
-                System.out.println("3. War");
-                System.out.println("4. Exit");
-                System.out.print("Choice: ");
-
-                int choice = input.nextInt();
-                int bet;
-
-                switch (choice) {
-
-                    // Poker
-                    case 1:
-
-                        bet = getBet(input, player);
-
-                        Poker poker = new Poker(player);
-
-                        boolean pokerWon = poker.play();
-
-                        if (pokerWon) {
-                            player.addChips(bet);
-                            System.out.println("You won $" + bet + "!");
-                        } else {
-                            player.removeChips(bet);
-                            System.out.println("You lost $" + bet + "!");
-                        }
-
-                        break;
-
-                    // Blackjack
-                    case 2:
-
-                        bet = getBet(input, player);
-
-                        Blackjack blackjack = new Blackjack(player);
-
-                        boolean blackjackWon = blackjack.play();
-
-                        if (blackjackWon) {
-                            player.addChips(bet);
-                            System.out.println("You won $" + bet + "!");
-                        } else {
-                            player.removeChips(bet);
-                            System.out.println("You lost $" + bet + "!");
-                        }
-
-                        break;
-
-                    // War
-                    case 3:
-
-                        bet = getBet(input, player);
-
-                        War war = new War(player);
-
-                        boolean warWon = war.play();
-
-                        if (warWon) {
-                            player.addChips(bet);
-                            System.out.println("You won $" + bet + "!");
-                        } else {
-                            player.removeChips(bet);
-                            System.out.println("You lost $" + bet + "!");
-                        }
-
-                        break;
-
-                    // Exit
-                    case 4:
-                        running = false;
-                        System.out.println("Thanks for playing, come again!");
-                        break;
-
-                    // Invalid Input
-                    default:
-                        System.out.println("Invalid choice, please enter a valid option.");
-                }
             }
-            input.close();
+
+            System.out.println();
+            System.out.println("Choose a game:");
+            System.out.println("1. Poker");
+            System.out.println("2. Blackjack");
+            System.out.println("3. War");
+            System.out.println("4. Exit");
+            System.out.print("Choice: ");
+
+            int choice = input.nextInt();
+            int bet;
+
+            switch (choice) {
+
+                // Poker
+                case 1:
+
+                    bet = getBet(input, player);
+
+                    Poker poker = new Poker(player);
+
+                    boolean pokerWon = poker.play();
+
+                    if (pokerWon) {
+                        player.addChips(bet);
+                        System.out.println("You won $" + bet + "!");
+                    } else {
+                        player.removeChips(bet);
+                        System.out.println("You lost $" + bet + "!");
+                    }
+
+                    break;
+
+                // Blackjack
+                case 2:
+
+                    bet = getBet(input, player);
+
+                    Blackjack blackjack = new Blackjack(player);
+
+                    boolean blackjackWon = blackjack.play();
+
+                    if (blackjackWon) {
+                        player.addChips(bet);
+                        System.out.println("You won $" + bet + "!");
+                    } else {
+                        player.removeChips(bet);
+                        System.out.println("You lost $" + bet + "!");
+                    }
+
+                    break;
+
+                // War
+                case 3:
+
+                    bet = getBet(input, player);
+
+                    War war = new War(player);
+
+                    boolean warWon = war.play();
+
+                    if (warWon) {
+                        player.addChips(bet);
+                        System.out.println("You won $" + bet + "!");
+                    } else {
+                        player.removeChips(bet);
+                        System.out.println("You lost $" + bet + "!");
+                    }
+
+                    break;
+
+                // Exit
+                case 4:
+                    running = false;
+                    System.out.println("Thanks for playing, come again!");
+                    break;
+
+                // Invalid Input
+                default:
+                    System.out.println("Invalid choice, please enter a valid option.");
+            }
         }
+        input.close();
     }
+
 
     // Handles all betting logic in one place
     public static int getBet(Scanner input, Player player) {
@@ -133,11 +134,9 @@ public class Main {
             // Check if bet is valid
             if (bet <= 0) {
                 System.out.println("Invalid bet. Try again.");
-            }
-            else if (bet > player.getChips()) {
+            } else if (bet > player.getChips()) {
                 System.out.println("You don't have enough chips!");
-            }
-            else {
+            } else {
                 return bet; // valid bet
             }
         }

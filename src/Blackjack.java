@@ -1,5 +1,15 @@
 public class Blackjack extends CasinoGame {
 
+    @Override
+    public boolean play() {
+
+        playerTurn();
+        dealerTurn();
+        determineWin();
+
+        return true;
+    }
+
     private Deck deck;
     private Player player;
     private Player dealer;
@@ -11,8 +21,8 @@ public class Blackjack extends CasinoGame {
         deck = new Deck();
         deck.shuffle();
 
-        player = new Player("Player");
-        dealer = new Player("Dealer");
+        this.player = player;
+        this.dealer = new Player("Dealer");
     }
 
     public void playerTurn(){

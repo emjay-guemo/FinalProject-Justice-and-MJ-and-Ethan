@@ -1,138 +1,114 @@
 public class War extends CasinoGame {
+
     private Deck deck;
-    private double currentBet;
-    private double balance; // Tracks the money
+    private Player player;
 
-    // Sets up the game, deck, and gives player starting chips
-    public War() {
-        this.deck = new Deck();
-        this.balance = 500.00; // Starts the player with $500
+    // Creates a new War game
+    public War(Player player) {
+        this.player = player;
+        deck = new Deck();
     }
 
-    // Runs the Casino War game loop
-    public void play() {
-        System.out.println("\n--- Welcome to Casino War ---");
+    @Override
+    public boolean play() {
 
-        while (balance > 0) {
-            System.out.println("\nYour current balance: $" + balance);
+        deck.reset();
 
-            // Asks for a bet or checks if wanting to exit
-            double betAmount = Input.getUserDouble("Enter bet amount (or 0 to return to main menu): $");
+        Card playerCard = deck.dealCard();
+        Card dealerCard = deck.dealCard();
 
-            if (betAmount == 0) {
-                System.out.println("Returning to the main casino floor...");
-                return; // Exits play and goes back to the main menu
-            }
-            if (betAmount < 0) {
-                System.out.println("Bet must be a positive number!");
-                continue; // Restarts loop to ask for a valid bet
-            }
-            if (betAmount > balance) {
-                System.out.println("You do not have enough money for that bet!");
-                continue;
-            }
+        System.out.println("\n--- WAR ---");
 
-            // Bet accepted, start the round
-            this.currentBet = betAmount;
-            this.balance = this.balance - betAmount; // Takes the bet chips away
+        System.out.println("Your card: " + playerCard);
+        System.out.println("Dealer's card: " + dealerCard);
 
-            // Deals the first two cards
-            Card playerCard = deck.dealCard();
-            Card dealerCard = deck.dealCard();
+        int playerValue = getWarValue(playerCard);
+        int dealerValue = getWarValue(dealerCard);
 
-            System.out.println("\nYour card:     " + playerCard.toString());
-            System.out.println("Dealer's card: " + dealerCard.toString());
+        if (playerValue > dealerValue) {
 
-            // Converts the card ranks to numbers for War
-            int playerValue = getWarValue(playerCard);
-            int dealerValue = getWarValue(dealerCard);
+            System.out.println("You Win!");
 
-            // Compares the cards
-            if (playerValue > dealerValue) {
-                // If Player wins, gets bet back plus equal winnings times two
-                this.balance = this.balance + (currentBet * 2);
-                System.out.println("You win! You won: $" + currentBet);
-            }
-            else if (dealerValue > playerValue) {
-                System.out.println("Dealer wins. You lost: $" + currentBet);
-            }
-            else {
-                // It's a Tie
-                handleTie();
-            }
+            return true;
         }
 
-        System.out.println("\nYou ran out of money! Game Over.");
-    }
+        else if (dealerValue > playerValue) {
 
-    // This is what happens during a Tie
-    private void handleTie() {
-        System.out.println("\nIt's a TIE!");
-        System.out.println("1. Go to War (Double your bet)");
-        System.out.println("2. Surrender (Lose half your bet)");
+            System.out.println("Dealer Wins!");
 
-        int choice = Input.getUserInt("Your choice (1 or 2): ");
-
-        if (choice == 2) {
-            // if you surrender you give back half the bet
-            double refund = currentBet / 2;
-            this.balance = this.balance + refund;
-            System.out.println("You surrendered. You got back: $" + refund);
+            return false;
         }
+
         else {
-            // Checks if player can afford to double up or not
-            if (currentBet > balance) {
-                System.out.println("Not enough money to go to war, Forced to surrender.");
-                this.balance = this.balance + (currentBet / 2);
-                return;
-            }
 
-            // Takes the matching war bet money away
-            this.balance = this.balance - currentBet;
-            System.out.println("Going to war, Matching bet has been placed.");
-
-            // Burns 3 cards and draws the 4th
-            deck.dealCard(); deck.dealCard(); deck.dealCard();
-            Card playerWarCard = deck.dealCard();
-
-            deck.dealCard(); deck.dealCard(); deck.dealCard();
-            Card dealerWarCard = deck.dealCard();
-
-            System.out.println("\nWar - Your card:     " + playerWarCard.toString());
-            System.out.println("War - Dealer's card: " + dealerWarCard.toString());
-
-            int pWarValue = getWarValue(playerWarCard);
-            int dWarValue = getWarValue(dealerWarCard);
-
-            if (pWarValue > dWarValue) {
-                // Player wins the war, Gives back all bet money + profit
-                this.balance = this.balance + (currentBet * 3);
-                System.out.println("You won, Profit: $" + currentBet);
-            }
-            else if (dWarValue > pWarValue) {
-                System.out.println("You lost");
-            }
-            else {
-                // Double Tie
-                this.balance = this.balance + (currentBet * 4);
-                System.out.println("Double Tie!");
-            }
+            return handleTie();
         }
     }
 
-    // Ranks the cards
+    // Handles what happens if both cards are equal
+    private boolean handleTie() {
+
+        System.out.println("\nWAR!");
+
+        // Burn cards
+        deck.dealCard();
+        deck.dealCard();
+        deck.dealCard();
+
+        Card playerWarCard = deck.dealCard();
+
+        deck.dealCard();
+        deck.dealCard();
+        deck.dealCard();
+
+        Card dealerWarCard = deck.dealCard();
+
+        System.out.println("War Card: " + playerWarCard);
+        System.out.println("Dealer War Card: " + dealerWarCard);
+
+        int playerValue = getWarValue(playerWarCard);
+        int dealerValue = getWarValue(dealerWarCard);
+
+        if (playerValue > dealerValue) {
+
+            System.out.println("You won the war!");
+
+            return true;
+        }
+
+        else if (dealerValue > playerValue) {
+
+            System.out.println("Dealer won the war!");
+
+            return false;
+        }
+
+        else {
+
+            System.out.println("Double Tie! Dealer wins.");
+
+            return false;
+        }
+    }
+
+    // Converts card ranks into War values
     private int getWarValue(Card card) {
+
         String rank = card.getRank();
 
         if (rank.equals("Ace")) {
-            return 14; // Ace is the highest card in War
-        } else if (rank.equals("King")) {
+            return 14;
+        }
+        else if (rank.equals("King")) {
             return 13;
-        } else if (rank.equals("Queen")) {
+        }
+        else if (rank.equals("Queen")) {
             return 12;
-        } else if (rank.equals("Jack")) {
+        }
+        else if (rank.equals("Jack")) {
             return 11;
-        } else {
+        }
+        else {
             return Integer.parseInt(rank);
         }
     }
