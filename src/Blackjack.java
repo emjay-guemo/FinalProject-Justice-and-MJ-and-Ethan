@@ -5,17 +5,12 @@ public class Blackjack extends CasinoGame {
 
         playerTurn();
         dealerTurn();
-        determineWin();
-
-        return true;
+        return determineWin();
     }
 
     private Deck deck;
     private Player player;
     private Player dealer;
-    private int targetScore;
-
-    Hand hand = new Hand();
 
     public Blackjack(Player player){
         deck = new Deck();
@@ -23,12 +18,18 @@ public class Blackjack extends CasinoGame {
 
         this.player = player;
         this.dealer = new Player("Dealer");
+
+        player.getHand().addCard(deck.dealCard());
+        player.getHand().addCard(deck.dealCard());
+
+        dealer.getHand().addCard(deck.dealCard());
+        dealer.getHand().addCard(deck.dealCard());
     }
 
     public void playerTurn(){
-        System.out.println("Your Hand: " + player.getHand().size());
+        System.out.println("Your Hand: " + player.getHand().getValue());
 
-        while (player.getHand().size() < 21){
+        while (player.getHand().getValue() < 21){
             String playerChoice = Input.getUserString("""
                     H for Hit
                     S for Stand
@@ -38,6 +39,7 @@ public class Blackjack extends CasinoGame {
             if (playerChoice.equalsIgnoreCase("H")){
                 System.out.println("Hit");
                 player.getHand().addCard(deck.dealCard());
+                System.out.println(player.getHand() + "Value " + player.getHand().getValue());
             }
             if (playerChoice.equalsIgnoreCase("S")){
                 break;
@@ -45,35 +47,46 @@ public class Blackjack extends CasinoGame {
             if (playerChoice.equalsIgnoreCase("D")){
                 System.out.println("Double");
                 player.getHand().addCard(deck.dealCard());
+                System.out.println(player.getHand() + "Value " + player.getHand().getValue());
+                break;
             }
         }
     }
 
-    public void determineWin(){
-        int playerScore = player.getHand().size();
-        int dealerScore = dealer.getHand().size();
+    public boolean determineWin(){
+        int playerScore = player.getHand().getValue();
+        int dealerScore = dealer.getHand().getValue();
 
         if (playerScore > 21){
             System.out.println("Dealer Wins!");
+            return false;
         }
         else if (dealerScore > 21) {
             System.out.println("Player Wins!");
+            return true;
         }
         else if (playerScore > dealerScore) {
             System.out.println("Player Wins!");
+            return true;
         }
         else if (dealerScore > playerScore) {
             System.out.println("Dealer Wins!");
+            return false;
         }
         else {
             System.out.println("Push/Tie");
+            return false;
         }
     }
 
     public void dealerTurn(){
-        while (dealer.getHand().size() < 17){
+        while (dealer.getHand().getValue() < 17){
             dealer.getHand().addCard(deck.dealCard());
         }
+
+        System.out.println("Dealer's Hand" + dealer.getHand());
+        System.out.println("Dealer's Value" + dealer.getHand().getValue());
+
     }
 
     /*

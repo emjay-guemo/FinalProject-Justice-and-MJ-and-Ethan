@@ -16,6 +16,19 @@ public class Card {
 
     public String getRank() {return rank;}
 
+    public int getValue(){
+        if (rank.equals("Ace"))
+            return 11;
+
+        if (rank.equals("Jack") ||
+            rank.equals("Queen") ||
+            rank.equals("King"))
+            return 10;
+
+        return Integer.parseInt(rank);
+     }
+
+
     @Override
     public String toString() {
         return rank + " of " + suit;

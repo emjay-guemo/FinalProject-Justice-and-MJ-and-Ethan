@@ -39,6 +39,17 @@ public class Hand {
         return new ArrayList<>(cards);
     }
 
+    // Gets the value of the cards. (ex. A king would have a value of 10.)
+    public int getValue(){
+        System.out.println("Cards in hand: " + cards.size());
+        int total = 0;
+
+        for (Card card: cards){
+            total += card.getValue();
+        }
+        return total;
+    }
+
     @Override
     public String toString(){
         return cards.toString();
