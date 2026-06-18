@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+// Ethan's Code
 public class Deck {
 
     // Stores all cards in the deck
